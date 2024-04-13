@@ -1,0 +1,11 @@
+env:
+  LISTENER_HTTP_PORT:
+    value: "8080"
+  LISTENER_HTTP_HOST:
+    value: "0.0.0.0"
+  SQL_CONNECTION_URL:
+    value: "postgresql://password:postgres@localhost:15432/booking?sslmode=disable"
+  POSTGRES_PASSWORD:
+    postgres: "postgres"
+  POSTGRES_USER:
+    password: "password"
