@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"github.com/ViharevN/design_test_master/config"
 	repo "github.com/ViharevN/design_test_master/internal/repository/booking"
 	"github.com/ViharevN/design_test_master/internal/service"
@@ -9,6 +10,7 @@ import (
 	"github.com/ViharevN/design_test_master/internal/service/room"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/sync/errgroup"
+	"os"
 )
 
 type app struct {
@@ -18,10 +20,23 @@ type app struct {
 	log           *logrus.Logger
 }
 
-func NewApp() *app {
+func NewApp() (*app, error) {
 	/* **************************** init configuration *************************** */
-	loger := logrus.Logger{}
+	loger := &logrus.Logger{
+		Out:   os.Stderr,
+		Level: logrus.DebugLevel, // Установите уровень, который вам нужен
+		Formatter: &logrus.TextFormatter{
+			FullTimestamp: true,
+		},
+	}
 	configuration, err := config.LoadConfig()
+	if err != nil {
+		return nil, err
+	}
+	if config.IsEmpty(configuration) {
+		return nil, fmt.Errorf("failed to load configuration from source")
+	}
+	loger.Print("Config load succeed")
 	/* **************************** init core pg repos *************************** */
 	pgClient, err := repo.NewRepository(configuration)
 	if err != nil {
@@ -42,8 +57,8 @@ func NewApp() *app {
 		configuration: configuration,
 		orderService:  serviceOrder,
 		roomService:   serviceRoom,
-		log:           &loger,
-	}
+		log:           loger,
+	}, nil
 }
 
 func (a *app) Run(ctx context.Context) error {

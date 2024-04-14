@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/go-yaml/yaml"
-	"github.com/sirupsen/logrus"
 )
 
 type YamlParameters struct {
@@ -30,13 +29,10 @@ type App struct {
 
 func LoadConfig() (Config, error) {
 	source := os.Getenv("CONFIG_SOURCE")
-	log := logrus.Logger{}
-	log.Info("Start app from:", source)
 	if source == "local" {
 		configuration, err := getConfigFromLocal()
 		if err != nil {
-			log.Errorf("Failed to start app from local source")
-			panic(err)
+			return Config{}, err
 		}
 
 		return configuration, nil
@@ -91,4 +87,8 @@ func getConfigFromYaml() ([]YamlParameters, error) {
 	}
 
 	return result, nil
+}
+
+func IsEmpty(c Config) bool {
+	return c == Config{}
 }

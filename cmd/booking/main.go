@@ -7,8 +7,11 @@ import (
 
 func main() {
 	ctx := context.Background()
-	application := app.NewApp()
-	if err := application.Run(ctx); err != nil {
+	application, err := app.NewApp()
+	if err != nil {
+		panic(err)
+	}
+	if err = application.Run(ctx); err != nil {
 		panic(err)
 	}
 }

@@ -37,6 +37,6 @@ func (a *app) startServer() error {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("HTTP Server is listening port :%s \n\n", a.configuration.ListenerHttpPort)
+	a.log.Print("HTTP Server is listening port: ", a.configuration.ListenerHttpPort)
 	return listener.Serve(server)
 }
