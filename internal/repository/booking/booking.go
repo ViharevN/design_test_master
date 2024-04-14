@@ -4,12 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/ViharevN/design_test_master/config"
-	"github.com/ViharevN/design_test_master/internal/model"
+	"time"
+
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"time"
+
+	"github.com/ViharevN/design_test_master/config"
+	"github.com/ViharevN/design_test_master/internal/model"
 )
 
 type repository struct {
