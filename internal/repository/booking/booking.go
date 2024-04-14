@@ -34,7 +34,6 @@ func (r repository) CreateRoom(ctx context.Context, room model.Room) error {
 	if err != nil {
 		var pgErr *pgconn.PgError
 		if errors.As(err, &pgErr) && pgErr.Code == "23505" {
-			// Это ошибка уникального ограничения (ключа)
 			return fmt.Errorf("такая комната уже существует: %w", err)
 		}
 		return fmt.Errorf("failed ro create new room: %w", err)
