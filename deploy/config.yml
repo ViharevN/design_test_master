@@ -5,7 +5,5 @@ env:
     value: "0.0.0.0"
   SQL_CONNECTION_URL:
     value: "postgresql://password:postgres@localhost:15432/booking?sslmode=disable"
-  POSTGRES_PASSWORD:
-    postgres: "postgres"
-  POSTGRES_USER:
-    password: "password"
+  GIN_DEBUG_MODE:
+    value: "release"

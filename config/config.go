@@ -19,12 +19,12 @@ type deploymentYamlScheme struct {
 type Config struct {
 	ListenerHost     string `env:"HTTP_PORT"`
 	ListenerHttpPort string `env:"LISTENER_HTTP_PORT"`
-	SQLConnectionUrl string `env:""`
-	App              App
+	SQLConnectionUrl string `env:"SQL_CONNECTION_URL"`
+	Debug            Debug
 }
 
-type App struct {
-	Debug bool `env:"GIN_DEBUG"`
+type Debug struct {
+	GinDebugMode string `env:"GIN_DEBUG_MODE"`
 }
 
 func LoadConfig() (Config, error) {
@@ -56,6 +56,8 @@ func getConfigFromLocal() (Config, error) {
 			config.ListenerHost = parameters.parameters["value"]
 		case "SQL_CONNECTION_URL":
 			config.SQLConnectionUrl = parameters.parameters["value"]
+		case "GIN_DEBUG_MODE":
+			config.Debug.GinDebugMode = parameters.parameters["value"]
 		}
 	}
 

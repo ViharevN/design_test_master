@@ -13,9 +13,7 @@ import (
 )
 
 func (a *app) startServer() error {
-	if !a.configuration.App.Debug {
-		gin.SetMode(gin.ReleaseMode)
-	}
+	gin.SetMode(a.configuration.Debug.GinDebugMode)
 
 	handler := gin.Default()
 
