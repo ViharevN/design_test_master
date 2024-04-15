@@ -24,7 +24,7 @@ func NewApp() (*app, error) {
 	/* **************************** init configuration *************************** */
 	loger := &logrus.Logger{
 		Out:   os.Stderr,
-		Level: logrus.DebugLevel, // Установите уровень, который вам нужен
+		Level: logrus.DebugLevel,
 		Formatter: &logrus.TextFormatter{
 			FullTimestamp: true,
 		},
